@@ -11,12 +11,28 @@ import java.time.LocalDate;
 public class Main {
     public static void main(String[] args) {
 
-        Phone phone1 = new Phone("Iphone","\uD83D\uDE0E",147000,"Amazing phone","14 PRO Max",256);
-        Phone phone2 = new Phone("Samsung","\uD83E\uDD29",58000,"Great phone","S21",128);
+        // * 1. java -8  деген пакет ачып анын ичине announcement, home, transport, devices деген пакеттерди тузунуз.
+        //* 2. announcement пакетинде Announcement деген класс тузунуз.Анын полялары:
+        //* { private  String name; private String image; private double price; private String description; }
+        //* 3.Devices пакетинин ичинде Announcement ти мурасстаган Phone(){ private String product;
+        //* private int memory; },Laptop(){ private String operatingSystem; } деген  касстарды тузунуз!
+        //* 4.home пакетинин ичинде Home(){ private String homeType; private int maxGuest;} деген класс ачыныз.
+        //* 5.transport пакетинин ичинде Car(){ private String colour; private LocalDate yearOfIssue; }
+        //* final class Airplane(){ Car классын extends кылсын озунун полясы жок } Helicopter (){ Airplane классын мурастасын }
+        //* деген класс тузунуз. Laptop,Phone,Home,Airplane,Car,Helicopter  ар бирине 2 ден объект тузуп,
+        //* поляларын     толтурунуз.Methods : 1- Announcement  классынын ичинде public static double maxPrice(double price1,
+        // double price2){ } метод тузунуз метод тузунуз
+        // *  2-public static void findByPrice(int price ,Phone[]phones,Laptop[]laptops,Home[]homes,Car[]cars,Helicopter[]helicopters){
+        // *      бул метод  консолдон баасын берсек ошол баасы бар бардык обектерди консолго чыгарып берсин }
+        // *  3-public static void findByName(String name ,Phone[]phones,Laptop[]laptops,Home[]homes,Car[]cars,Helicopter[]helicopters){
+        // *      бул метод консолдон атын жазсак ошол  обектер чыгышы керек */
+
+        Phone phone1 = new Phone("Iphone","\uD83D\uDE0E",50000,"Amazing phone","14 PRO Max",256);
+        Phone phone2 = new Phone("Samsung","\uD83E\uDD29",52500,"Great phone","S21",128);
         Phone[] phones = {phone1,phone2};
 
         Laptop laptop1 = new Laptop("MacBook", "\uD83D\uDE0D",129000,"Wonderful laptop","Mac OS");
-        Laptop laptop2 = new Laptop("Acer", "\uD83E\uDD16",12000000,"Productive laptop","Windows");
+        Laptop laptop2 = new Laptop("Acer", "\uD83E\uDD16",1520000,"Productive laptop","Windows");
         Laptop[] laptops = {laptop1,laptop2};
 
         Home home1 = new Home("Ihlas","\uD83C\uDFE2",3500000,"Great Home","Multi-storey",10);
@@ -24,7 +40,7 @@ public class Main {
         Home[] homes = {home1,home2};
 
         Car car1 = new Car("Mercedes-Benz","\uD83D\uDE98",15000000,"Wonderful Car","Black", LocalDate.of(2010,3,6));
-        Car car2 = new Car("BMW","\uD83D\uDE99",12000000,"Fast Car","Purple", LocalDate.of(2020,8,28));
+        Car car2 = new Car("BMW","\uD83D\uDE99",170000,"Fast Car","Purple", LocalDate.of(2020,8,28));
         Car[] cars = {car1,car2};
 
         Airplane airplane1 = new Airplane("Supermarine Spitfire","\uD83D\uDEE9",125000000,"Fast Airplane","White", LocalDate.of(2015,1,14));
@@ -38,51 +54,57 @@ public class Main {
         Annoucement[] annoucements = {phone1,phone2,laptop1,laptop2,home1,home2,car1,car2,helicopter1,helicopter2,airplane1,airplane2};
 
         findByPrice (12000000,annoucements);
-        findByPrice(12000000,phones,laptops,homes,cars,helicopters,airplanes);
-    }
-
-    public static void findByPrice(double price, Phone[]phones, Laptop[]laptops, Home[]homes,
-                                Car[]cars, Helicopter[]helicopters, Airplane[] airplanes){
-        for (Phone phone:phones) {
-            if (phone.getPrice() == price){
-                System.out.println(phone);
-            }
-        }
-        for (Laptop laptop:laptops) {
-            if (laptop.getPrice() == price){
-                System.out.println(laptop);
-            }
-        }
-        for (Home home:homes) {
-            if (home.getPrice() == price){
-                System.out.println(home);
-            }
-        }
-        for (Car car:cars) {
-            if (car.getPrice() == price){
-                System.out.println(car);
-            }
-        }
-        for (Helicopter helicopter:helicopters) {
-            if (helicopter.getPrice() == price){
-                System.out.println(helicopter);
-            }
-        }
-        for (Airplane airplane:airplanes) {
-            if (airplane.getPrice() == price){
-                System.out.println(airplane);
-            }
-        }
+        findByName("Ihlas",annoucements);
+        findMaxPrice(annoucements);
+        findMinPrice(annoucements);
+        findByCategory("Home",annoucements);
     }
 
     public static void findByPrice(double price, Annoucement[] annoucements){
 
         for (Annoucement annoucement:annoucements) {
             if (annoucement.getPrice() == price){
+                System.out.println("  Find by price:  "+annoucement);
+            }
+        }
+    }
+    public static void findByName(String name, Annoucement[] annoucements){
+        for (Annoucement annoucement:annoucements) {
+            if (annoucement.getName() == name){
+                System.out.println("  Find by name: "+annoucement);
+            }
+        }
+    }
+    public static void findMaxPrice(Annoucement[] annoucements){
+        long maxPrice = 0;
+        for (Annoucement annoucement:annoucements) {
+            maxPrice = (long) Math.max(annoucement.getPrice(),maxPrice);
+        }
+        System.out.println("  The highest price is:  "+maxPrice);
+        for (Annoucement annoucement:annoucements) {
+            if (annoucement.getPrice() == maxPrice) {
                 System.out.println(annoucement);
             }
         }
-
     }
+    public static void findMinPrice(Annoucement[] annoucements){
+        long minPrice = (long) annoucements[0].getPrice();
+        for (int i = 0;i < annoucements.length;i++) {
+            minPrice = (long) Math.min(annoucements[i].getPrice(),minPrice);
+        }
+        System.out.println("  The lowest price is:  "+minPrice);
+        for (Annoucement annoucement:annoucements) {
+            if (annoucement.getPrice() == minPrice) {
+                System.out.println(annoucement);
+            }
+        }
+    }
+    public static void findByCategory(String category,Annoucement[] annoucements){
+        for (Annoucement annoucement:annoucements) {
+            if (annoucement.getClass().equals(category)){
+                System.out.println("  Find by Category:  "+annoucement);
+            }
 
+        }
+    }
 }
