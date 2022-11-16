@@ -58,6 +58,9 @@ public class Main {
         findMaxPrice(annoucements);
         findMinPrice(annoucements);
         findByCategory("Home",annoucements);
+        findByOperatingSystem("Windows",laptops);
+        findByMemory(128,phones);
+        findBySymbol('A',annoucements);
     }
 
     public static void findByPrice(double price, Annoucement[] annoucements){
@@ -100,11 +103,33 @@ public class Main {
         }
     }
     public static void findByCategory(String category,Annoucement[] annoucements){
-        for (Annoucement annoucement:annoucements) {
-            if (annoucement.getClass().equals(category)){
-                System.out.println("  Find by Category:  "+annoucement);
-            }
 
+        if (annoucements.getClass().equals(annoucements)){
+            for (Annoucement annoucement:annoucements) {
+                    System.out.println("  Find by Category:  "+annoucement);
+                }
+        }
+    }
+    public static void findByOperatingSystem(String operatingSystem, Laptop[] laptops){
+            for (Laptop laptop:laptops) {
+                if (laptop.getOperatingSystem() == operatingSystem){
+                    System.out.println("  Find laptop by OS:  "+laptop);
+            }
+        }
+    }
+
+    public static void findByMemory(int memory,Phone[] phones){
+        for (Phone phone:phones) {
+            if (phone.getMemory() == memory){
+                System.out.println("  Find phone by memory:  "+phone);
+            }
+        }
+    }
+    public static void findBySymbol(char symbol,Annoucement[] announcements){
+        for (Annoucement annoucement:announcements) {
+            if (annoucement.getName().charAt(0) == symbol){
+                System.out.println("  Find  announcements by Alphabet:  "+annoucement);
+            }
         }
     }
 }
