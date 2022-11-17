@@ -7,6 +7,7 @@ import java8.transport.Car;
 import java8.transport.Helicopter;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Main {
     public static void main(String[] args) {
@@ -57,7 +58,8 @@ public class Main {
         findByName("Ihlas",annoucements);
         findMaxPrice(annoucements);
         findMinPrice(annoucements);
-        findByCategory("Home",annoucements);
+        findByLocalDate(LocalDate.of(2010,3,6),cars);
+        findByCategory(Helicopter.class,annoucements);
         findByOperatingSystem("Windows",laptops);
         findByMemory(128,phones);
         findBySymbol('A',annoucements);
@@ -92,8 +94,8 @@ public class Main {
     }
     public static void findMinPrice(Annoucement[] annoucements){
         long minPrice = (long) annoucements[0].getPrice();
-        for (int i = 0;i < annoucements.length;i++) {
-            minPrice = (long) Math.min(annoucements[i].getPrice(),minPrice);
+        for (Annoucement value : annoucements) {
+            minPrice = (long) Math.min(value.getPrice(), minPrice);
         }
         System.out.println("  The lowest price is:  "+minPrice);
         for (Annoucement annoucement:annoucements) {
@@ -102,17 +104,24 @@ public class Main {
             }
         }
     }
-    public static void findByCategory(String category,Annoucement[] annoucements){
-
-        if (annoucements.getClass().equals(annoucements)){
-            for (Annoucement annoucement:annoucements) {
-                    System.out.println("  Find by Category:  "+annoucement);
+    public static void findByLocalDate(LocalDate localDate,Car[] cars){
+            for (Car value:cars) {
+                if (Objects.equals(value.getYearOfIssue(), localDate)){
+                    System.out.println("  Find by LocalDate:  "+value);
                 }
+        }
+    }
+
+    public static void findByCategory(Class category,Annoucement[] annoucements){
+        for (Annoucement value:annoucements) {
+            if (Objects.equals(value.getClass(), category)){
+                System.out.println("  Find by Category:  "+value);
+            }
         }
     }
     public static void findByOperatingSystem(String operatingSystem, Laptop[] laptops){
             for (Laptop laptop:laptops) {
-                if (laptop.getOperatingSystem() == operatingSystem){
+                if (laptop.getOperatingSystem().equals(operatingSystem)){
                     System.out.println("  Find laptop by OS:  "+laptop);
             }
         }
